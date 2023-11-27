@@ -4,26 +4,17 @@ public class CustomLinkedList<T> {
     private Node<T> head;
     private int size;
 
-    public int getSize(int i) {
-        return size;
-    }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public CustomLinkedList() {
-    }
 
     public void add(T data) {
         if (head == null) {
-            this.head = new Node(data);
+            this.head = new Node<>(data);
         } else {
             Node<T> current = head;
             while (current.getNext() != null) {
                 current = current.getNext();
             }
-            Node<T> newElement = new Node(data);
+            Node<T> newElement = new Node<>(data);
             current.setNext(newElement);
         }
         size++;
@@ -67,20 +58,20 @@ public class CustomLinkedList<T> {
             this.data = data;
         }
 
-        public T getData() {
-            return this.data;
-        }
-
-        public void setData(T data) {
-            this.data = data;
-        }
-
         public Node<T> getNext() {
             return next;
         }
 
         public void setNext(Node<T> next) {
             this.next = next;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
         }
     }
 }
