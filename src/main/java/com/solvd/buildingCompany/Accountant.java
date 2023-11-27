@@ -1,6 +1,6 @@
 package com.solvd.buildingCompany;
-import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
 import com.solvd.buildingCompany.interfaces.IPayWhenWorkIsDone;
+import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
 import com.solvd.buildingCompany.interfaces.IProvideServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
