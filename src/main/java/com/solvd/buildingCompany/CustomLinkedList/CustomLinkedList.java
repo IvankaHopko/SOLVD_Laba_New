@@ -4,7 +4,9 @@ public class CustomLinkedList<T> {
     private Node<T> head;
     private int size;
 
-
+    public int getSize(int i) {
+        return size;
+    }
 
     public void add(T data) {
         if (head == null) {
@@ -34,7 +36,7 @@ public class CustomLinkedList<T> {
     public boolean remove(T data) {
         Node<T> current = head;
         Node<T> previous = null;
-        while (current != null && !current.data.equals(data)) {
+        while (current != null && !current.getData().equals(data)) {
             previous = current;
             current = current.getNext();
         }
@@ -58,20 +60,20 @@ public class CustomLinkedList<T> {
             this.data = data;
         }
 
-        public Node<T> getNext() {
-            return next;
-        }
-
-        public void setNext(Node<T> next) {
-            this.next = next;
-        }
-
         public T getData() {
             return data;
         }
 
         public void setData(T data) {
             this.data = data;
+        }
+
+        public Node<T> getNext() {
+            return next;
+        }
+
+        public void setNext(Node<T> next) {
+            this.next = next;
         }
     }
 }
