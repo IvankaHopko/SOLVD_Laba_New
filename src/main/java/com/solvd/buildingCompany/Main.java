@@ -147,9 +147,10 @@ public class Main {
         }
 
 
-        File file = new File("D:\\laba.SOLVD\\buildingCompany\\src\\main\\resources\\AboutUkraine.txt");
+        File sourceFile = new File("D:\\laba.SOLVD\\buildingCompany\\src\\main\\resources\\AboutUkraine.txt");
+        File destinationFile = new File("D:\\laba.SOLVD\\buildingCompany\\src\\main\\resources\\UniqueWordsCount.txt");
         try {
-            String content = FileUtils.readFileToString(file);
+            String content = FileUtils.readFileToString(sourceFile);
             String[] words = StringUtils.split(content);
 
             Set<String> uniqueWords = new HashSet<>();
@@ -158,7 +159,7 @@ public class Main {
             }
             int uniqueWordCount = uniqueWords.size();
 
-            FileUtils.writeStringToFile(file, "\nUnique words amount: " + uniqueWordCount, true);
+            FileUtils.writeStringToFile(destinationFile, "\nUnique words amount: " + uniqueWordCount);
         } catch (IOException e) {
             e.printStackTrace();
         }
