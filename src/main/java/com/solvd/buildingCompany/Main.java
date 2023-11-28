@@ -2,10 +2,12 @@ package com.solvd.buildingCompany;
 
 import com.solvd.buildingCompany.CustomLinkedList.CustomLinkedList;
 import com.solvd.buildingCompany.exceptions.*;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -143,6 +145,24 @@ public class Main {
         for (Foreman foreman : foremanTreeSet) {
             LOGGER.info("Experience: " + foreman.getExperience() + ", " + "Last Name: " + foreman.getLastName());
         }
+
+
+        File file = new File("D:\\laba.SOLVD\\buildingCompany\\src\\main\\resources\\AboutUkraine.txt");
+        try {
+            String content = FileUtils.readFileToString(file);
+            String[] words = StringUtils.split(content);
+
+            Set<String> uniqueWords = new HashSet<>();
+            for (String word : words) {
+                uniqueWords.add(word.toLowerCase());
+            }
+            int uniqueWordCount = uniqueWords.size();
+
+            FileUtils.writeStringToFile(file, "\nUnique words amount: " + uniqueWordCount, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+
 
