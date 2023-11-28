@@ -159,7 +159,8 @@ public class Main {
             }
             int uniqueWordCount = uniqueWords.size();
 
-            FileUtils.writeStringToFile(destinationFile, "\nUnique words amount: " + uniqueWordCount);
+            FileUtils.writeStringToFile(destinationFile, "\nUnique words amount from 'AboutUkraine' text: " +
+                    uniqueWordCount);
         } catch (IOException e) {
             e.printStackTrace();
         }
