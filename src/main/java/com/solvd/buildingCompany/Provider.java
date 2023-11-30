@@ -5,16 +5,16 @@ import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Supplier implements IMaintainDocumentation {
+public class Provider implements IMaintainDocumentation {
 
-    private static final Logger LOGGER = LogManager.getLogger(Supplier.class);
+    private static final Logger LOGGER = LogManager.getLogger(Provider.class);
 
     private String firstName;
     private String lastName;
     private String address;
     protected boolean haveAllNeeded;
 
-    public Supplier(String firstName, String lastName, String address, boolean haveAllNeeded) {
+    public Provider(String firstName, String lastName, String address, boolean haveAllNeeded) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -30,7 +30,8 @@ public class Supplier implements IMaintainDocumentation {
     }
 
     public void ordersValidation() {
-        LOGGER.info("I check every if there is enough materials in stock");
+        Runnable validationProcess = () -> LOGGER.info("For every order I check if there is enough materials in stock");
+        validationProcess.run();
     }
 
     @Override

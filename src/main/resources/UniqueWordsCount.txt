@@ -1,2 +1,2 @@
 
-Unique words amount: 47
+Unique words amount from 'AboutUkraine' text: 47

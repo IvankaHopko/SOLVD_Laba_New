@@ -1,4 +1,4 @@
-package com.solvd.buildingCompany.CustomLinkedList;
+package com.solvd.buildingCompany.customLinkedList;
 
 public class CustomLinkedList<T> {
     private Node<T> head;
