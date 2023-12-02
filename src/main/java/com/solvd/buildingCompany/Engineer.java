@@ -1,5 +1,7 @@
 package com.solvd.buildingCompany;
 
+import com.solvd.buildingCompany.enums.BuildingType;
+import com.solvd.buildingCompany.enums.Departments;
 import com.solvd.buildingCompany.exceptions.NotEnoughInfoException;
 import com.solvd.buildingCompany.interfaces.IProvideServices;
 import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
@@ -12,11 +14,13 @@ public class Engineer extends CompanyEmployee implements IProvideServices, IUpgr
     private static final Logger LOGGER = LogManager.getLogger(Engineer.class);
 
     private static boolean enoughInfo;
+    private final BuildingType mostCommonProjects;
 
     public Engineer(String firstName, String lastName, String occupation, double salary, int experience,
-                    boolean enoughInfo) {
-        super(firstName, lastName, occupation, salary, experience);
+                    boolean enoughInfo, BuildingType mostCommonProjects) {
+        super(firstName, lastName, occupation, salary, experience, Departments.ENGINEERING);
         Engineer.enoughInfo = enoughInfo;
+        this.mostCommonProjects = mostCommonProjects;
     }
 
     public static void checkingForEnoughInfo(boolean enoughInfo) throws NotEnoughInfoException {
@@ -52,6 +56,10 @@ public class Engineer extends CompanyEmployee implements IProvideServices, IUpgr
 
     public void setEnoughInfo(boolean enoughInfo) {
         Engineer.enoughInfo = enoughInfo;
+    }
+
+    public BuildingType getMostCommonProjects() {
+        return this.mostCommonProjects;
     }
 }
 

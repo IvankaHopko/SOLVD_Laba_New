@@ -2,5 +2,5 @@ package com.solvd.buildingCompany.interfaces.customLambdaInterfaces;
 
 @FunctionalInterface
 public interface Countable<T> {
-    T quarterlySalaryCount(T month1, T month2, T month3);
+    T totalSalaryCount(T foreman1, T foreman2, T foreman3, T foreman4);
 }

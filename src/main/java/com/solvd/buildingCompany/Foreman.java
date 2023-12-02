@@ -1,5 +1,6 @@
 package com.solvd.buildingCompany;
 
+import com.solvd.buildingCompany.enums.Departments;
 import com.solvd.buildingCompany.exceptions.NotImplementedMethodException;
 import com.solvd.buildingCompany.exceptions.NotReadyToStartException;
 import com.solvd.buildingCompany.interfaces.IApproveBuildingMaterials;
@@ -20,7 +21,7 @@ public class Foreman extends CompanyEmployee implements IProvideServices, IAppro
 
     public Foreman(String firstName, String lastName, String occupation, double salary, int experience,
                    boolean readyToStart) {
-        super(firstName, lastName, occupation, salary, experience);
+        super(firstName, lastName, occupation, salary, experience, Departments.BUILDING);
         this.readyToStart = readyToStart;
     }
 

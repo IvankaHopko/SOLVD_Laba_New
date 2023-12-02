@@ -1,8 +1,8 @@
 package com.solvd.buildingCompany.enums;
 
-public enum Non_workingPeriod {
+public enum NonWorkingPeriod {
     SUNDAY(1, false, 0),
-    THANKSGIVINGDAY(1, false, 0),
+    THANKSGIVING_DAY(1, false, 0),
     EASTER(2, true, 5),
     CHRISTMAS(2, true, 10);
 
@@ -10,7 +10,7 @@ public enum Non_workingPeriod {
     private final boolean bonus;
     private final int bonusPercent;
 
-    Non_workingPeriod(int duration, boolean bonus, int bonusPercent) {
+    NonWorkingPeriod(int duration, boolean bonus, int bonusPercent) {
         this.duration = duration;
         this.bonus = bonus;
         this.bonusPercent = bonusPercent;

@@ -1,5 +1,6 @@
 package com.solvd.buildingCompany;
 
+import com.solvd.buildingCompany.enums.NonWorkingPeriod;
 import com.solvd.buildingCompany.exceptions.OutOfTimeException;
 import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
 import org.apache.logging.log4j.LogManager;
@@ -14,14 +15,16 @@ public class BuildingCrew implements IUpgradeQualification {
     private int workingHours;
     private static int deadlineInMonths;
     private int monthsToBuild;
+    private final NonWorkingPeriod schedule;
 
     public BuildingCrew(int totalExperience, double minCostPerHour, int workingHours, int deadlineInMonths,
-                        int monthsToBuild) {
+                        int monthsToBuild, NonWorkingPeriod schedule) {
         this.totalExperience = totalExperience;
         this.minCostPerHour = minCostPerHour;
         this.workingHours = workingHours;
         BuildingCrew.deadlineInMonths = deadlineInMonths;
         this.monthsToBuild = monthsToBuild;
+        this.schedule = schedule;
     }
 
     @Override
@@ -87,5 +90,9 @@ public class BuildingCrew implements IUpgradeQualification {
 
     public void setMonthsToBuild(int monthsToBuild) {
         this.monthsToBuild = monthsToBuild;
+    }
+
+    public NonWorkingPeriod getSchedule() {
+        return this.schedule;
     }
 }

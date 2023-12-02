@@ -1,4 +1,6 @@
 package com.solvd.buildingCompany;
+
+import com.solvd.buildingCompany.enums.Departments;
 import com.solvd.buildingCompany.interfaces.IPayWhenWorkIsDone;
 import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
 import com.solvd.buildingCompany.interfaces.IProvideServices;
@@ -19,7 +21,7 @@ public class Accountant extends CompanyEmployee
 
     protected Accountant(String firstName, String lastName, String occupation, double salary,
                          int experience, boolean enoughMoney) {
-        super(firstName, lastName, occupation, salary, experience);
+        super(firstName, lastName, occupation, salary, experience, Departments.ACCOUNTING);
         this.enoughMoney = enoughMoney;
     }
 

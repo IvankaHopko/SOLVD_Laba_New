@@ -29,21 +29,21 @@ public class Main {
 
         ArrayList<CompanyEmployee> employees = new ArrayList<>();
 
-        employees.add(new Receptionist("Ella", "Parenti", 26, "Receptionist",
+        employees.add(new Receptionist("Ella", "Wally", 26, "Receptionist",
                 20000, 5));
         employees.add(new Engineer("John", "Bambie", "Senior Engineer", 40000,
-                10, false));
+                10, false, BuildingType.TOWNHOUSE));
         employees.add(new PurchasingManager("Mikaela", "Hanks", "Marketer", 25000,
-                7, 500000, 350000));
+                7, 500000, 350000, SupplierCountries.USA));
         employees.add(new Accountant("Sarah", "Miles", "Junior Accountant", 18000,
                 1, true));
         employees.add(new Foreman("Bill", "Moore", "senior foreman", 60000,
                 25, true));
         BuildingCrew buildingCrew = new BuildingCrew(10, 100, 40,
-                12, 10);
+                12, 10, NonWorkingPeriod.CHRISTMAS);
         Building desiredBuilding = new Building(2, 70, "suburbs", "townhouse");
         Customer customer = new Customer("Dean", "Winchester", desiredBuilding);
-        Provider provider = new Provider("John", "Dogget", "Kyiv", true);
+        Provider provider = new Provider("John", "Storm", "Kyiv", true);
 
         LOGGER.info("\n\nCustomer: " + customer.getFirstName() + " " + customer.getLastName() + "\n\n" +
                 "Desired building: " + "\n" + customer.getDesiredBuilding());
@@ -51,6 +51,8 @@ public class Main {
         double totalPrice = CostCalculating.totalPriceCalculation(desiredBuilding, buildingCrew);
 
         LOGGER.info("\nTotal price: " + totalPrice);
+
+        Receptionist.showCoFoundersInfo();
 
         Provider.inStockChecking(provider.getHaveAllNeeded());
         LOGGER.info("All in stock: " + Provider.inStockChecking(provider.getHaveAllNeeded()));
@@ -95,7 +97,7 @@ public class Main {
         boolean removed = buildings.remove(buildingToRemove);
 
         if (removed) {
-            LOGGER.info("\nBuilding has been removed successfully");
+            LOGGER.info("\nBuilding has been successfully removed");
         } else {
             LOGGER.info("\nBuilding not found or can not be removed");
         }
@@ -171,6 +173,57 @@ public class Main {
             e.printStackTrace();
         }
 
+        Countable<Double> addFunction = ((foreman1, foreman2, foreman3, foreman4) ->
+                foreman1 + foreman2 + foreman3 + foreman4);
+        Foreman foreman1 = new Foreman("Jim", "Stain", "Lead foreman", 40000,
+                26, true);
+        Foreman foreman2 = new Foreman("Mike", "Anderson", "Senior foreman", 25000,
+                15, true);
+        Foreman foreman3 = new Foreman("Will", "Middleton", "Foreman", 20000,
+                7, true);
+        Foreman foreman4 = new Foreman("Bobby", "Ringo", "Junior foreman", 16000,
+                1, true);
+
+        double totalSalary = addFunction.totalSalaryCount(foreman1.getSalary(), foreman2.getSalary(),
+                foreman3.getSalary(), foreman4.getSalary());
+        LOGGER.info("\n\nTotal foremen salary is " + totalSalary);
+
+        Displayable<String> displayLastNames = (accountant, receptionist, foreman, engineer) ->
+                (accountant + receptionist + foreman + engineer);
+
+        Accountant accountant1 = new Accountant("Sarah", "Miles", "Junior Accountant",
+                18000, 1, true);
+        Receptionist receptionist1 = new Receptionist("Ella", "Wally", 26,
+                "Receptionist", 20000, 5);
+        Foreman foreman5 = new Foreman("Jim", "Stain", "Lead foreman", 40000,
+                26, true);
+        Engineer engineer1 = new Engineer("John", "Bambie", "Senior Engineer", 40000,
+                10, false, BuildingType.COTTAGE);
+
+        displayLastNames.lastNamesDisplay(accountant1.getLastName(), receptionist1.getLastName(), foreman5.getLastName(),
+                engineer1.getLastName());
+
+        LOGGER.info("\nLast names:");
+        LOGGER.info("Accountant: " + accountant1.getLastName() + "; "
+                + "Receptionist: " + receptionist1.getLastName() + "; " + "Foreman: " + foreman5.getLastName() + "; "
+                + "Engineer: " + engineer1.getLastName());
+
+        Summable<Integer> addExperience = ((accountant, purchasingManager, receptionist, engineer) ->
+                accountant + purchasingManager + receptionist + engineer);
+
+        Accountant cashier = new Accountant("Sarah", "Miles", "Junior Accountant",
+                18000, 1, true);
+        PurchasingManager buyer = new PurchasingManager("Mikaela", "Hanks", "Marketer",
+                25000, 7, 500000, 350000, SupplierCountries.GERMANY);
+        Receptionist admin = new Receptionist("Ella", "Wally", 26, "Receptionist",
+                20000, 5);
+        Engineer projectMaker = new Engineer("John", "Bambie", "Senior Engineer", 40000,
+                10, false, BuildingType.ECO_HOUSE);
+
+        int totalExperience = addExperience.experienceSummary(cashier.getExperience(), buyer.getExperience(),
+                admin.getExperience(), projectMaker.getExperience());
+        LOGGER.info("Employees total experience is: " + totalExperience + " years");
+
         List<String> names = new ArrayList<>();
         names.add("Jack Frost");
         names.add("Santa");
@@ -192,26 +245,6 @@ public class Main {
         Function<String, Integer> stringLengthFunction = str -> str.length();
         int length = stringLengthFunction.apply("pneumonoultramicroscopicsilicovolcanoconiosis");
         LOGGER.info("Length is: " + length);
-
-        Countable<Integer> addFunction = ((month1, month2, month3) -> month1 + month2 + month3);
-        double quarterSalary = addFunction.quarterlySalaryCount(16000, 18000, 18000);
-        LOGGER.info("The first quarter salary is: " + quarterSalary);
-
-        Displayable<String> displayLastNames = (accountant, receptionist, foreman, engineer) -> {
-            LOGGER.info("\nLast names:");
-            LOGGER.info("Accountant: " + accountant);
-            LOGGER.info("Receptionist: " + receptionist);
-            LOGGER.info("Foreman: " + foreman);
-            LOGGER.info("Engineer: " + engineer);
-            return null;
-        };
-        displayLastNames.lastNamesDisplay("Brook", "Stone", "Ford", "Perry");
-
-
-        Summable<Integer> addExperience = ((employee1, employee2, employee3, employee4) -> employee1 + employee2 +
-                employee3 + employee4);
-        int totalExperience = addExperience.experienceSummary(26, 15, 7, 1);
-        LOGGER.info("Foreman total experience is: " + totalExperience + " years");
 
         LOGGER.info("\nBlock of flats:");
         LOGGER.info("Square: " + BuildingType.BLOCK_OF_FLATS.getSquare());
@@ -246,10 +279,10 @@ public class Main {
         LOGGER.info("Purchasing department has: " + Departments.PURCHASING.getHoursPerWeek() + " working hours per week");
 
         LOGGER.info(" ");
-        LOGGER.info("Bonus for Sundays: " + Non_workingPeriod.SUNDAY.getBonus());
-        LOGGER.info("The bonus for Christmas holiday is: " + Non_workingPeriod.CHRISTMAS.getBonusPercent() + "%");
-        LOGGER.info("The amount of days off for Easter is: " + Non_workingPeriod.EASTER.getDuration());
-        LOGGER.info("The amount of days off for Thanksgivind Day is: " + Non_workingPeriod.THANKSGIVINGDAY.getDuration());
+        LOGGER.info("Bonus for Sundays: " + NonWorkingPeriod.SUNDAY.getBonus());
+        LOGGER.info("The bonus for Christmas holiday is: " + NonWorkingPeriod.CHRISTMAS.getBonusPercent() + "%");
+        LOGGER.info("The amount of days off for Easter is: " + NonWorkingPeriod.EASTER.getDuration());
+        LOGGER.info("The amount of days off for Thanksgiving Day is: " + NonWorkingPeriod.THANKSGIVING_DAY.getDuration());
 
         LOGGER.info(" ");
         LOGGER.info("Country is allowed to make order from: " + SupplierCountries.USA.permissionCheck());
@@ -261,15 +294,12 @@ public class Main {
         LOGGER.info("It will take " + SupplierCountries.GERMANY.getDeliveryTimeInDays() + " to ship the order");
 
         LOGGER.info(" ");
-        LOGGER.info("This co-founder has the write to run the company: " + Co_founders.FINANCIAL_DIRECTOR.getFirstName() + " "
-                + Co_founders.FINANCIAL_DIRECTOR.getLastName() + " - " + Co_founders.FINANCIAL_DIRECTOR.getSoleOwnership());
-        LOGGER.info("This co-founder has the write to run the company: " + Co_founders.MARKETING_DIRECTOR.getFirstName() + " "
-                + Co_founders.MARKETING_DIRECTOR.getLastName() + " - " + Co_founders.MARKETING_DIRECTOR.getSoleOwnership());
-        LOGGER.info("This co-founder has the write to run the company: " + Co_founders.IDEA_CREATOR.getFirstName() + " "
-                + Co_founders.IDEA_CREATOR.getLastName() + " - " + Co_founders.IDEA_CREATOR.getSoleOwnership());
+        LOGGER.info("This co-founder has the write to run the company: " + CoFounders.FINANCIAL_DIRECTOR.getFirstName() + " "
+                + CoFounders.FINANCIAL_DIRECTOR.getLastName() + " - " + CoFounders.FINANCIAL_DIRECTOR.getSoleOwnership());
+        LOGGER.info("This co-founder has the write to run the company: " + CoFounders.MARKETING_DIRECTOR.getFirstName() + " "
+                + CoFounders.MARKETING_DIRECTOR.getLastName() + " - " + CoFounders.MARKETING_DIRECTOR.getSoleOwnership());
+        LOGGER.info("This co-founder has the write to run the company: " + CoFounders.IDEA_CREATOR.getFirstName() + " "
+                + CoFounders.IDEA_CREATOR.getLastName() + " - " + CoFounders.IDEA_CREATOR.getSoleOwnership());
+
     }
 }
-
-
-
-

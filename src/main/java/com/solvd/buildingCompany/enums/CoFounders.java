@@ -1,6 +1,6 @@
 package com.solvd.buildingCompany.enums;
 
-public enum Co_founders {
+public enum CoFounders {
     IDEA_CREATOR("Chandler", "Bing", true),
     MARKETING_DIRECTOR("Gegina", "Falange", false),
     FINANCIAL_DIRECTOR("Joey", "Tribbiany", false);
@@ -9,7 +9,7 @@ public enum Co_founders {
     private final String lastName;
     private final boolean soleOwnership;
 
-    Co_founders(String firstName, String lastName, boolean soleOwnership) {
+    CoFounders(String firstName, String lastName, boolean soleOwnership) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.soleOwnership = soleOwnership;

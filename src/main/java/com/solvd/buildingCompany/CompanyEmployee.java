@@ -1,5 +1,7 @@
 package com.solvd.buildingCompany;
 
+import com.solvd.buildingCompany.enums.Departments;
+
 import java.util.Objects;
 
 public abstract class CompanyEmployee {
@@ -8,13 +10,16 @@ public abstract class CompanyEmployee {
     protected String occupation;
     private double salary;
     protected int experience;
+    private final Departments departments;
 
-    public CompanyEmployee(String firstName, String lastName, String occupation, double salary, int experience) {
+    public CompanyEmployee(String firstName, String lastName, String occupation, double salary, int experience,
+                           Departments departments) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.occupation = occupation;
         this.salary = salary;
         this.experience = experience;
+        this.departments = departments;
     }
 
     public double getRequiredCost() {
@@ -71,6 +76,10 @@ public abstract class CompanyEmployee {
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    public Departments getDepartments() {
+        return this.departments;
     }
 
     @Override

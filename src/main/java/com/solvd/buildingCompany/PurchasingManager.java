@@ -1,5 +1,7 @@
 package com.solvd.buildingCompany;
 
+import com.solvd.buildingCompany.enums.Departments;
+import com.solvd.buildingCompany.enums.SupplierCountries;
 import com.solvd.buildingCompany.exceptions.InsufficientFundsException;
 import com.solvd.buildingCompany.interfaces.IApproveBuildingMaterials;
 import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
@@ -14,12 +16,14 @@ public class PurchasingManager extends CompanyEmployee
 
     private static double projectBudget;
     private double requiredCost;
+    private final SupplierCountries departurePoint;
 
     public PurchasingManager(String firstName, String lastName, String occupation, double salary,
-                             int experience, double projectBudget, double requiredCost) {
-        super(firstName, lastName, occupation, salary, experience);
+                             int experience, double projectBudget, double requiredCost, SupplierCountries departurePoint) {
+        super(firstName, lastName, occupation, salary, experience, Departments.PURCHASING);
         PurchasingManager.projectBudget = projectBudget;
         this.requiredCost = requiredCost;
+        this.departurePoint = departurePoint;
     }
 
     @Override
@@ -66,6 +70,10 @@ public class PurchasingManager extends CompanyEmployee
 
     public void setRequiredCost(double requiredCost) {
         this.requiredCost = requiredCost;
+    }
+
+    public SupplierCountries getDeparturePoint() {
+        return this.departurePoint;
     }
 
     @Override
