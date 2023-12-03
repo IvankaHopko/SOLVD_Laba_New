@@ -5,7 +5,7 @@ import com.solvd.buildingCompany.enums.*;
 import com.solvd.buildingCompany.exceptions.*;
 import com.solvd.buildingCompany.interfaces.customLambdaInterfaces.Countable;
 import com.solvd.buildingCompany.interfaces.customLambdaInterfaces.Displayable;
-import com.solvd.buildingCompany.interfaces.customLambdaInterfaces.Summable;
+import com.solvd.buildingCompany.interfaces.customLambdaInterfaces.Approvable;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -186,43 +186,25 @@ public class Main {
 
         double totalSalary = addFunction.totalSalaryCount(foreman1.getSalary(), foreman2.getSalary(),
                 foreman3.getSalary(), foreman4.getSalary());
-        LOGGER.info("\n\nTotal foremen salary is " + totalSalary);
+        LOGGER.info("\n\nTotal foremen salary is " + totalSalary + "\n");
 
-        Displayable<String> displayLastNames = (accountant, receptionist, foreman, engineer) ->
-                (accountant + receptionist + foreman + engineer);
+        Displayable<String, Integer> displayAccount = (occupation, salary) ->
+                LOGGER.info("Accountant occupation is: " + occupation + " and the salary is: " + salary + "$\n");
 
-        Accountant accountant1 = new Accountant("Sarah", "Miles", "Junior Accountant",
-                18000, 1, true);
-        Receptionist receptionist1 = new Receptionist("Ella", "Wally", 26,
-                "Receptionist", 20000, 5);
-        Foreman foreman5 = new Foreman("Jim", "Stain", "Lead foreman", 40000,
-                26, true);
-        Engineer engineer1 = new Engineer("John", "Bambie", "Senior Engineer", 40000,
-                10, false, BuildingType.COTTAGE);
+        displayAccount.displayAccountantInfo("'Junior Accountant'", 18000);
 
-        displayLastNames.lastNamesDisplay(accountant1.getLastName(), receptionist1.getLastName(), foreman5.getLastName(),
-                engineer1.getLastName());
+        Approvable<String, String, Boolean> approveProject = (occupation, lastName, enoughInfo) -> {
+            if (enoughInfo) {
+                LOGGER.info("Project approved to start");
+                return true;
+            } else {
+                LOGGER.info("Not enough information to start working on a project");
+                return false;
+            }
+        };
 
-        LOGGER.info("\nLast names:");
-        LOGGER.info("Accountant: " + accountant1.getLastName() + "; "
-                + "Receptionist: " + receptionist1.getLastName() + "; " + "Foreman: " + foreman5.getLastName() + "; "
-                + "Engineer: " + engineer1.getLastName());
-
-        Summable<Integer> addExperience = ((accountant, purchasingManager, receptionist, engineer) ->
-                accountant + purchasingManager + receptionist + engineer);
-
-        Accountant cashier = new Accountant("Sarah", "Miles", "Junior Accountant",
-                18000, 1, true);
-        PurchasingManager buyer = new PurchasingManager("Mikaela", "Hanks", "Marketer",
-                25000, 7, 500000, 350000, SupplierCountries.GERMANY);
-        Receptionist admin = new Receptionist("Ella", "Wally", 26, "Receptionist",
-                20000, 5);
-        Engineer projectMaker = new Engineer("John", "Bambie", "Senior Engineer", 40000,
-                10, false, BuildingType.ECO_HOUSE);
-
-        int totalExperience = addExperience.experienceSummary(cashier.getExperience(), buyer.getExperience(),
-                admin.getExperience(), projectMaker.getExperience());
-        LOGGER.info("Employees total experience is: " + totalExperience + " years");
+        boolean readyToStart = approveProject.projectStart("Senior Engineer", "Jones", true);
+        LOGGER.info("Engineer has enough information and is ready to start working on a project: " + readyToStart);
 
         List<String> names = new ArrayList<>();
         names.add("Jack Frost");
