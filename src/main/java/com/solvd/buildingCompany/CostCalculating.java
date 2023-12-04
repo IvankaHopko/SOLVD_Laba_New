@@ -3,6 +3,8 @@ package com.solvd.buildingCompany;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.function.Function;
+
 public class CostCalculating {
 
     private static final Logger LOGGER = LogManager.getLogger(CostCalculating.class);
@@ -100,15 +102,16 @@ public class CostCalculating {
         return costCalculationOnFloors + costCalculationOnMeterSquared + costCalculationOnLocation +
                 costCalculationOnWorkingHours + costCalculationOnBuildingType;
     }
+
+    public static double applyFunctionToTotalPrice(Function<Double, Double> function, Building building, BuildingCrew buildingCrew) {
+        double totalPrice = totalPriceCalculation(building, buildingCrew);
+        return function.apply(totalPrice);
+    }
+
+    public static double applyDiscountToTotalPrice(double discountPercentage, Building building, BuildingCrew buildingCrew) {
+        Function<Double, Double> applyDiscountFunction = totalPrice -> totalPrice * (1 - (discountPercentage / 100));
+        double discountedPrice = applyFunctionToTotalPrice(applyDiscountFunction, building, buildingCrew);
+        LOGGER.info("Discounted Price is: " + discountedPrice);
+        return discountedPrice;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-

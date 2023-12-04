@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,9 @@ public class Main {
 
         LOGGER.info("\nTotal price: " + totalPrice);
 
+        double discountedPrice = CostCalculating.applyDiscountToTotalPrice(10, desiredBuilding, buildingCrew);
+        LOGGER.info("10% discounted price is: " + discountedPrice + "\n");
+
         Receptionist.showCoFoundersInfo();
 
         Provider.inStockChecking(provider.getHaveAllNeeded());
@@ -85,6 +89,8 @@ public class Main {
         } catch (NotEnoughInfoException e) {
             LOGGER.error(e.getMessage());
         }
+
+        Provider.ordersValidation();
 
         Employee worker1 = new Employee("Bruce", "Brown", "October");
         Employee worker2 = new Employee("Jensen", "Harris", "April");
@@ -139,14 +145,14 @@ public class Main {
                 .collect(Collectors.toList());
         LOGGER.info("All company departments: " + departmentsCollection);
 
-        List<String> employeeNames = buildingCompany.getDepartments().stream()
+        List<String> employeeLastNames = buildingCompany.getDepartments().stream()
                 .filter(department -> department.getAddress().contains("Kyiv"))
                 .flatMap(department -> department.getEmployees().stream())
                 .map(employee -> employee.getLastName())
                 .filter(employeeLastName -> employeeLastName.startsWith("S"))
                 .peek(employeeLastName -> LOGGER.info(employeeLastName))
                 .collect(Collectors.toList());
-        LOGGER.info("All employees last names: " + employeeNames);
+        LOGGER.info("All employees last names: " + employeeLastNames);
 
         boolean stores = buildingCompany.getDepartments().stream()
                 .filter(department -> department.getAddress().contains("Kyiv"))
@@ -263,9 +269,26 @@ public class Main {
 
             FileUtils.writeStringToFile(destinationFile, "\nUnique words amount from 'AboutUkraine' text: " +
                     uniqueWordCount);
+
+            Predicate<String> containsUkraine = word -> word.toLowerCase().equals("Ukraine");
+
+            boolean containsWordUkraine = false;
+            for (String word : words) {
+                if (containsUkraine.test(word)) {
+                    containsWordUkraine = true;
+                    break;
+                }
+            }
+
+            if (containsWordUkraine) {
+                LOGGER.info("Provided file contains word 'Ukraine'.");
+            } else {
+                LOGGER.info("Provided file does not contain word 'Ukraine'.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
 
         Countable<Double> addFunction = ((foreman1, foreman2, foreman3, foreman4) ->
                 foreman1 + foreman2 + foreman3 + foreman4);
@@ -288,13 +311,9 @@ public class Main {
         displayAccount.displayAccountantInfo("'Junior Accountant'", 18000);
 
         Approvable<String, String, Boolean> approveProject = (occupation, lastName, enoughInfo) -> {
-            if (enoughInfo) {
-                LOGGER.info("Project approved to start");
-                return true;
-            } else {
-                LOGGER.info("Not enough information to start working on a project");
-                return false;
-            }
+            LOGGER.info("Occupation: " + occupation + ", Last Name: " + lastName + ", Enough information: " + enoughInfo);
+
+            return occupation.equals("Senior Engineer") && enoughInfo;
         };
 
         boolean readyToStart = approveProject.projectStart("Senior Engineer", "Jones", true);

@@ -29,7 +29,7 @@ public class Provider implements IMaintainDocumentation {
         }
     }
 
-    public void ordersValidation() {
+    public static void ordersValidation() {
         Runnable validationProcess = () -> LOGGER.info("For every order I check if there is enough materials in stock");
         validationProcess.run();
     }
