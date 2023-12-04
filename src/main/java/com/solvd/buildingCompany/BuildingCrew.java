@@ -6,8 +6,6 @@ import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
 public class BuildingCrew implements IUpgradeQualification {
 
     private static final Logger LOGGER = LogManager.getLogger(BuildingCrew.class);

@@ -34,4 +34,13 @@ public class Employee {
     public void setHireMonth(String hireMonth) {
         this.hireMonth = hireMonth;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", hireMonth='" + hireMonth + '\'' +
+                '}';
+    }
 }

@@ -10,7 +10,6 @@ import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Foreman extends CompanyEmployee implements IProvideServices, IApproveBuildingMaterials, IApproveDesign,
