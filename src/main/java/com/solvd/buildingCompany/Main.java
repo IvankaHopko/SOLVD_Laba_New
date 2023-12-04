@@ -378,35 +378,37 @@ public class Main {
                 + CoFounders.IDEA_CREATOR.getLastName() + " - " + CoFounders.IDEA_CREATOR.getSoleOwnership());
 
 
-//        String className = "additionalClasses.Marketer";
-//
-//        try {
-//            Class<Marketer> marketerClass = (Class<Marketer>) Class.forName(className);
-//            Constructor<Marketer> marketerConstructor = marketerClass.getDeclaredConstructor(String.class, String.class,
-//                    boolean.class, int.class);
-//            Marketer marketer = marketerConstructor.newInstance("Samantha", "Goodwin", true, 3);
-//
-//            Field firstNameField = marketerClass.getDeclaredField("firstName");
-//            firstNameField.setAccessible(true);
-//            firstNameField.set(marketer, "Rachel");
-//
-//            for (Field declaredField : marketerClass.getDeclaredFields()) {
-//                Name name = declaredField.getDeclaredAnnotation(Name.class);
-//                String tempValue = name.value();
-//
-//                declaredField.setAccessible(true);
-//                declaredField.set(marketer, tempValue);
-//            }
-//
-//            for (Field declaredField : marketerClass.getDeclaredFields()) {
-//                declaredField.setAccessible(true);
-//                Object fieldValue = declaredField.get(marketer);
-//                LOGGER.info("Fields: " + declaredField.getName() + ", Value: " + fieldValue);
-//            }
-//
-//        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException |
-//                 NoSuchFieldException | ClassNotFoundException e) {
-//            throw new RuntimeException(e);
-//        }
+        String className = "com.solvd.buildingCompany.additionalClasses.Marketer";
+
+        try {
+            Class<Marketer> marketerClass = Marketer.class;
+            Constructor<Marketer> marketerConstructor = marketerClass.getDeclaredConstructor(String.class, String.class,
+                    boolean.class, int.class);
+            Marketer marketer = marketerConstructor.newInstance("Samantha", "Goodwin", true, 3);
+
+            Field firstNameField = marketerClass.getDeclaredField("firstName");
+            firstNameField.setAccessible(true);
+            firstNameField.set(marketer, "Sarah");
+
+            for (Field declaredField : marketerClass.getDeclaredFields()) {
+                if (declaredField.isAnnotationPresent(Name.class)) {
+                    Name name = declaredField.getDeclaredAnnotation(Name.class);
+                    String tempValue = name.value();
+
+                    declaredField.setAccessible(true);
+                    declaredField.set(marketer, tempValue);
+                }
+            }
+
+            for (Field declaredField : marketerClass.getDeclaredFields()) {
+                declaredField.setAccessible(true);
+                Object fieldValue = declaredField.get(marketer);
+                LOGGER.info("Fields: " + declaredField.getName() + ", Value: " + fieldValue);
+            }
+
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

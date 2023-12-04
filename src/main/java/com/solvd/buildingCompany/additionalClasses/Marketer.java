@@ -1,17 +1,22 @@
 package com.solvd.buildingCompany.additionalClasses;
 
+import com.solvd.buildingCompany.interfaces.IProvideServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Objects;
+
 public class Marketer {
+
+    private static final Logger LOGGER = LogManager.getLogger(Marketer.class);
 
     @Name(value = "Sarah")
     private String firstName;
 
-    @Name(value = "Green")
     private String lastName;
 
-    @Name(value = "true")
     private boolean background;
 
-    @Name("2")
     private int project;
 
     public Marketer(String firstName, String lastName, boolean background, int project) {
@@ -52,4 +57,18 @@ public class Marketer {
     public void setProject(int project) {
         this.project = project;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Marketer marketer = (Marketer) o;
+        return Objects.equals(firstName, marketer.firstName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName);
+    }
 }
+
