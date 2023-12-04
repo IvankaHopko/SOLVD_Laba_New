@@ -301,6 +301,16 @@ public class Main {
                 foreman3.getSalary(), foreman4.getSalary());
         LOGGER.info("\n\nTotal foremen salary is " + totalSalary + "\n");
 
+        List<BuildingCrew> builders = new ArrayList<>();
+        builders.add(new BuildingCrew(10, 100, 40,
+                12, 10, NonWorkingPeriod.CHRISTMAS));
+        builders.add(new BuildingCrew(8, 90, 36,
+                16, 12, NonWorkingPeriod.CHRISTMAS));
+        builders.add(new BuildingCrew(14, 120, 40,
+                10, 8, NonWorkingPeriod.CHRISTMAS));
+
+        Foreman.organizeBuildingTeam(builders);
+
         Displayable<String, Integer> displayAccount = (occupation, salary) ->
                 LOGGER.info("Accountant occupation is: " + occupation + " and the salary is: " + salary + "$\n");
 
