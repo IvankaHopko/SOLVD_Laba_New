@@ -1,6 +1,6 @@
 package com.solvd.buildingCompany;
 
-import com.solvd.buildingCompany.enums.Departments;
+import com.solvd.buildingCompany.enums.Units;
 import com.solvd.buildingCompany.exceptions.NotImplementedMethodException;
 import com.solvd.buildingCompany.exceptions.NotReadyToStartException;
 import com.solvd.buildingCompany.interfaces.IApproveBuildingMaterials;
@@ -10,6 +10,7 @@ import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Foreman extends CompanyEmployee implements IProvideServices, IApproveBuildingMaterials, IApproveDesign,
@@ -21,7 +22,7 @@ public class Foreman extends CompanyEmployee implements IProvideServices, IAppro
 
     public Foreman(String firstName, String lastName, String occupation, double salary, int experience,
                    boolean readyToStart) {
-        super(firstName, lastName, occupation, salary, experience, Departments.BUILDING);
+        super(firstName, lastName, occupation, salary, experience, Units.BUILDING);
         this.readyToStart = readyToStart;
     }
 
@@ -69,6 +70,7 @@ public class Foreman extends CompanyEmployee implements IProvideServices, IAppro
     public void setReadyToStart(boolean readyToStart) {
         this.readyToStart = readyToStart;
     }
+
 
     @Override
     public String toString() {

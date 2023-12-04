@@ -1,5 +1,6 @@
 package com.solvd.buildingCompany;
 
+import com.solvd.buildingCompany.additionalClasses.*;
 import com.solvd.buildingCompany.customLinkedList.CustomLinkedList;
 import com.solvd.buildingCompany.enums.*;
 import com.solvd.buildingCompany.exceptions.*;
@@ -12,10 +13,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -80,6 +85,95 @@ public class Main {
         } catch (NotEnoughInfoException e) {
             LOGGER.error(e.getMessage());
         }
+
+        Employee worker1 = new Employee("Bruce", "Brown", "October");
+        Employee worker2 = new Employee("Jensen", "Harris", "April");
+        Employee worker3 = new Employee("Felicity", "Day", "July");
+        Employee worker4 = new Employee("Rick", "Owen", "September");
+        List<Employee> workersDepartment1 = List.of(worker1, worker2, worker3, worker4);
+
+        Department department1 = new Department();
+        department1.setName("Ukrainian");
+        department1.setAddress("Kyiv");
+        department1.setStaff(350);
+        department1.setEmployees(workersDepartment1);
+
+
+        Employee worker5 = new Employee("Robert", "Heard", "March");
+        Employee worker6 = new Employee("Patrick", "Cruz", "June");
+        Employee worker7 = new Employee("Olivia", "Night", "February");
+        Employee worker8 = new Employee("Olivia", "Night", "February");
+        Employee worker9 = new Employee("Olivia", "Night", "February");
+        List<Employee> workersDepartment2 = List.of(worker5, worker6, worker7, worker8, worker9);
+
+        Department department2 = new Department();
+        department2.setName("Ukrainian");
+        department2.setAddress("Kharkiv");
+        department2.setStaff(250);
+        department2.setEmployees(workersDepartment2);
+
+
+        Employee worker10 = new Employee("Robert", "Heard", "March");
+        Employee worker11 = new Employee("Patrick", "Cruz", "June");
+        Employee worker12 = new Employee("Olivia", "Night", "February");
+        List<Employee> workersDepartment3 = List.of(worker10, worker11, worker12);
+
+        Department department3 = new Department();
+        department3.setName("Polish");
+        department3.setAddress("Warsaw");
+        department3.setStaff(250);
+        department3.setEmployees(workersDepartment3);
+
+        List<Department> departments = List.of(department1, department2, department3);
+
+        BuildingCompany buildingCompany = new BuildingCompany();
+        buildingCompany.setDepartments(departments);
+
+        buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Kharkiv"))
+                .map(department -> department.getAddress())
+                .collect(Collectors.toList());
+
+        List<Department> departmentsCollection = buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Kharkiv"))
+                .collect(Collectors.toList());
+        LOGGER.info("All company departments: " + departmentsCollection);
+
+        List<String> employeeNames = buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Kyiv"))
+                .flatMap(department -> department.getEmployees().stream())
+                .map(employee -> employee.getLastName())
+                .filter(employeeLastName -> employeeLastName.startsWith("S"))
+                .peek(employeeLastName -> LOGGER.info(employeeLastName))
+                .collect(Collectors.toList());
+        LOGGER.info("All employees last names: " + employeeNames);
+
+        boolean stores = buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Kyiv"))
+                .flatMap(department -> department.getEmployees().stream())
+                .map(employee -> employee.getLastName())
+                .allMatch(lastName -> lastName.startsWith("B"));
+        LOGGER.info("All last names that start with 'B': " + stores);
+
+        boolean stores1 = buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Kyiv"))
+                .flatMap(department -> department.getEmployees().stream())
+                .map(employee -> employee.getLastName())
+                .anyMatch(lastName -> lastName.startsWith("B"));
+        LOGGER.info("All last names that start with 'B': " + stores1);
+
+        Optional<Department> firstFoundedDept = buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Warsaw"))
+                .findFirst();
+
+        firstFoundedDept.get();
+
+        buildingCompany.getDepartments().stream()
+                .filter(department -> department.getAddress().contains("Kyiv"))
+                .flatMap(department -> department.getEmployees().stream())
+                .map(Employee::getLastName)
+                .filter(employeeLastName -> employeeLastName.startsWith("S"))
+                .forEach(lastName -> LOGGER.info("Employee with letter 'S' at the beginning of the last name: " + lastName));
 
         CustomLinkedList<String> buildings = new CustomLinkedList<>();
 
@@ -253,12 +347,12 @@ public class Main {
         LOGGER.info("The Eco-house is free to rent: " + BuildingType.ECO_HOUSE.checkIfRentFree());
 
         LOGGER.info(" ");
-        LOGGER.info("Advertising department has: " + Departments.ADVERTISING.getBusyness() + " % of busyness");
-        LOGGER.info("Building department has: " + Departments.BUILDING.getBusyness() + " % of busyness");
-        LOGGER.info("Accounting department has: " + Departments.ACCOUNTING.getBusyness() + " % of busyness");
-        LOGGER.info("Accounting department has: " + Departments.ACCOUNTING.getHoursPerWeek() + " working hours per week");
-        LOGGER.info("Engineering department has: " + Departments.ENGINEERING.getBusyness() + " % of busyness");
-        LOGGER.info("Purchasing department has: " + Departments.PURCHASING.getHoursPerWeek() + " working hours per week");
+        LOGGER.info("Advertising department has: " + Units.ADVERTISING.getBusyness() + " % of busyness");
+        LOGGER.info("Building department has: " + Units.BUILDING.getBusyness() + " % of busyness");
+        LOGGER.info("Accounting department has: " + Units.ACCOUNTING.getBusyness() + " % of busyness");
+        LOGGER.info("Accounting department has: " + Units.ACCOUNTING.getHoursPerWeek() + " working hours per week");
+        LOGGER.info("Engineering department has: " + Units.ENGINEERING.getBusyness() + " % of busyness");
+        LOGGER.info("Purchasing department has: " + Units.PURCHASING.getHoursPerWeek() + " working hours per week");
 
         LOGGER.info(" ");
         LOGGER.info("Bonus for Sundays: " + NonWorkingPeriod.SUNDAY.getBonus());
@@ -283,5 +377,36 @@ public class Main {
         LOGGER.info("This co-founder has the write to run the company: " + CoFounders.IDEA_CREATOR.getFirstName() + " "
                 + CoFounders.IDEA_CREATOR.getLastName() + " - " + CoFounders.IDEA_CREATOR.getSoleOwnership());
 
+
+//        String className = "additionalClasses.Marketer";
+//
+//        try {
+//            Class<Marketer> marketerClass = (Class<Marketer>) Class.forName(className);
+//            Constructor<Marketer> marketerConstructor = marketerClass.getDeclaredConstructor(String.class, String.class,
+//                    boolean.class, int.class);
+//            Marketer marketer = marketerConstructor.newInstance("Samantha", "Goodwin", true, 3);
+//
+//            Field firstNameField = marketerClass.getDeclaredField("firstName");
+//            firstNameField.setAccessible(true);
+//            firstNameField.set(marketer, "Rachel");
+//
+//            for (Field declaredField : marketerClass.getDeclaredFields()) {
+//                Name name = declaredField.getDeclaredAnnotation(Name.class);
+//                String tempValue = name.value();
+//
+//                declaredField.setAccessible(true);
+//                declaredField.set(marketer, tempValue);
+//            }
+//
+//            for (Field declaredField : marketerClass.getDeclaredFields()) {
+//                declaredField.setAccessible(true);
+//                Object fieldValue = declaredField.get(marketer);
+//                LOGGER.info("Fields: " + declaredField.getName() + ", Value: " + fieldValue);
+//            }
+//
+//        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException |
+//                 NoSuchFieldException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

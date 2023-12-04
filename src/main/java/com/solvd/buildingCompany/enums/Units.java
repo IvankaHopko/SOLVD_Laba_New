@@ -1,6 +1,6 @@
 package com.solvd.buildingCompany.enums;
 
-public enum Departments {
+public enum Units {
     ACCOUNTING(40, 80),
     ENGINEERING(40, 90),
     PURCHASING(36, 70),
@@ -10,7 +10,7 @@ public enum Departments {
     private final int hoursPerWeek;
     private final int busyness;
 
-    Departments(int hoursPerWeek, int busyness) {
+    Units(int hoursPerWeek, int busyness) {
         this.hoursPerWeek = hoursPerWeek;
         this.busyness = busyness;
     }

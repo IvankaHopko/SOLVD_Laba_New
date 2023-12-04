@@ -1,7 +1,7 @@
 package com.solvd.buildingCompany;
 
 import com.solvd.buildingCompany.enums.CoFounders;
-import com.solvd.buildingCompany.enums.Departments;
+import com.solvd.buildingCompany.enums.Units;
 import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
 import com.solvd.buildingCompany.interfaces.IProvideServices;
 import org.apache.logging.log4j.LogManager;
@@ -14,7 +14,7 @@ public class Receptionist extends CompanyEmployee implements IProvideServices, I
     private int age;
 
     public Receptionist(String firstName, String lastName, int age, String occupation, double salary, int experience) {
-        super(firstName, lastName, occupation, salary, experience, Departments.ADVERTISING);
+        super(firstName, lastName, occupation, salary, experience, Units.ADVERTISING);
         this.age = age;
     }
 

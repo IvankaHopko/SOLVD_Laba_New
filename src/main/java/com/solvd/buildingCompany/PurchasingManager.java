@@ -1,6 +1,6 @@
 package com.solvd.buildingCompany;
 
-import com.solvd.buildingCompany.enums.Departments;
+import com.solvd.buildingCompany.enums.Units;
 import com.solvd.buildingCompany.enums.SupplierCountries;
 import com.solvd.buildingCompany.exceptions.InsufficientFundsException;
 import com.solvd.buildingCompany.interfaces.IApproveBuildingMaterials;
@@ -20,7 +20,7 @@ public class PurchasingManager extends CompanyEmployee
 
     public PurchasingManager(String firstName, String lastName, String occupation, double salary,
                              int experience, double projectBudget, double requiredCost, SupplierCountries departurePoint) {
-        super(firstName, lastName, occupation, salary, experience, Departments.PURCHASING);
+        super(firstName, lastName, occupation, salary, experience, Units.PURCHASING);
         PurchasingManager.projectBudget = projectBudget;
         this.requiredCost = requiredCost;
         this.departurePoint = departurePoint;

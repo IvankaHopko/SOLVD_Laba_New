@@ -6,6 +6,8 @@ import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class BuildingCrew implements IUpgradeQualification {
 
     private static final Logger LOGGER = LogManager.getLogger(BuildingCrew.class);
@@ -16,6 +18,7 @@ public class BuildingCrew implements IUpgradeQualification {
     private static int deadlineInMonths;
     private int monthsToBuild;
     private final NonWorkingPeriod schedule;
+
 
     public BuildingCrew(int totalExperience, double minCostPerHour, int workingHours, int deadlineInMonths,
                         int monthsToBuild, NonWorkingPeriod schedule) {
