@@ -309,7 +309,7 @@ public class Main {
         builders.add(new BuildingCrew(14, 120, 40,
                 10, 8, NonWorkingPeriod.CHRISTMAS));
 
-        Foreman.organizeBuildingTeam(builders);
+        BuildingCrew.organizeBuildingTeam(builders);
 
         Displayable<String, Integer> displayAccount = (occupation, salary) ->
                 LOGGER.info("Accountant occupation is: " + occupation + " and the salary is: " + salary + "$\n");

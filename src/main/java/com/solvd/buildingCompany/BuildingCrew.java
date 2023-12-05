@@ -6,6 +6,10 @@ import com.solvd.buildingCompany.interfaces.IUpgradeQualification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 public class BuildingCrew implements IUpgradeQualification {
 
     private static final Logger LOGGER = LogManager.getLogger(BuildingCrew.class);
@@ -26,6 +30,22 @@ public class BuildingCrew implements IUpgradeQualification {
         BuildingCrew.deadlineInMonths = deadlineInMonths;
         this.monthsToBuild = monthsToBuild;
         this.schedule = schedule;
+    }
+
+    public static void organizeBuildingTeam(List<BuildingCrew> builders) {
+        Optional<Double> minCostPerHour = builders.stream()
+                .map(BuildingCrew::getMinCostPerHour)
+                .min(Double::compare);
+
+        minCostPerHour.ifPresent(minCost -> {
+            List<BuildingCrew> buildersCostPerHour = builders.stream()
+                    .filter(builder -> builder.getMinCostPerHour() == minCost)
+                    .collect(Collectors.toList());
+
+            buildersCostPerHour.forEach(builder -> {
+                LOGGER.info(builder.getMinCostPerHour() + "$ - is a builder's minimum cost per hour\n");
+            });
+        });
     }
 
     @Override

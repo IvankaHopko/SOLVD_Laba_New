@@ -24,10 +24,10 @@
         <Logger name="com.solvd.buildingCompany.Receptionist" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="com.solvd.buildingCompany.Foreman" level="info">
+        <Logger name="com.solvd.buildingCompany.BuildingCrew" level="info">
             <AppenderRef ref="File"/>
         </Logger>
-        <Logger name="com.solvd.buildingCompany.Foreman" level="info" additivity="false">
+        <Logger name="com.solvd.buildingCompany.BuildingCrew" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
         <Root level="error">

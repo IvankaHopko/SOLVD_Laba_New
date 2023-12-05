@@ -37,22 +37,6 @@ public class Foreman extends CompanyEmployee implements IProvideServices, IAppro
         return readyToStart;
     }
 
-    public static void organizeBuildingTeam(List<BuildingCrew> builders) {
-        Optional<Double> minCostPerHour = builders.stream()
-                .map(BuildingCrew::getMinCostPerHour)
-                .min(Double::compare);
-
-        minCostPerHour.ifPresent(minCost -> {
-            List<BuildingCrew> buildersCostPerHour = builders.stream()
-                    .filter(builder -> builder.getMinCostPerHour() == minCost)
-                    .collect(Collectors.toList());
-
-            buildersCostPerHour.forEach(builder -> {
-                LOGGER.info(builder.getMinCostPerHour() + "$ - is a builder's minimum cost per hour\n");
-            });
-        });
-    }
-
     @Override
     public void provideServices() {
         LOGGER.info("I lead the building crew");
