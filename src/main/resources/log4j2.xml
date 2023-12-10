@@ -30,6 +30,24 @@
         <Logger name="com.solvd.buildingCompany.BuildingCrew" level="info" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
+        <Logger name="com.solvd.buildingCompany.Provider" level="info">
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="com.solvd.buildingCompany.Provider" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="com.solvd.buildingCompany.threads.Main" level="info">
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="com.solvd.buildingCompany.threads.Main" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="com.solvd.buildingCompany.threads.ConnectionPool" level="info">
+            <AppenderRef ref="File"/>
+        </Logger>
+        <Logger name="com.solvd.buildingCompany.threads.ConnectionPool" level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Root level="error">
         </Root>
     </Loggers>

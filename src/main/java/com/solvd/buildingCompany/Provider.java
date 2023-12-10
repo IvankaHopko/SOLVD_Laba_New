@@ -5,7 +5,7 @@ import com.solvd.buildingCompany.interfaces.IMaintainDocumentation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Provider implements IMaintainDocumentation {
+public class Provider extends Thread implements IMaintainDocumentation {
 
     private static final Logger LOGGER = LogManager.getLogger(Provider.class);
 
@@ -19,6 +19,11 @@ public class Provider implements IMaintainDocumentation {
         this.lastName = lastName;
         this.address = address;
         this.haveAllNeeded = haveAllNeeded;
+    }
+
+    @Override
+    public void run(){
+        LOGGER.info("\nThe first additional thread has been successfully created\n");
     }
 
     protected void sellsNeededMaterial() {
@@ -52,7 +57,7 @@ public class Provider implements IMaintainDocumentation {
         return this.firstName;
     }
 
-    public void setName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
