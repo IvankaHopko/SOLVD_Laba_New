@@ -1,27 +1,30 @@
 package com.solvd.buildingCompany.threads;
 
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.*;
 
 public class ConnectionPool {
 
     private final int poolSize;
-    private final Map<Integer, Connection> connectionPool = new ConcurrentHashMap<>();
-    private int initialId = 1;
-    private final Semaphore availableConnections;
+    private static ConnectionPool connectionPool;
+    private final BlockingQueue<Connection> connections;
 
-    public ConnectionPool(int poolSize) {
+    private ConnectionPool(int poolSize) {
         this.poolSize = poolSize;
-        this.availableConnections = new Semaphore(poolSize);
+        this.connections = new LinkedBlockingQueue<>(poolSize);
+        initializeConnectionPool();
+    }
+
+    public static synchronized ConnectionPool getInstance(int poolSize) {
+        if (connectionPool == null) {
+            connectionPool = new ConnectionPool(poolSize);
+        }
+        return connectionPool;
     }
 
     public void initializeConnectionPool() {
-        synchronized (connectionPool) {
-            for (int i = 0; i < poolSize; i++) {
-                connectionPool.put(initialId++, new Connection("Connection - " + i));
-            }
+        for (int i = 0; i < poolSize; i++) {
+            connections.offer(new Connection("Connection - " + i));
         }
     }
 
@@ -29,7 +32,6 @@ public class ConnectionPool {
         return CompletableFuture.supplyAsync(() -> {
             Connection connection = null;
             try {
-                availableConnections.acquire();
                 connection = acquireConnection();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -38,25 +40,13 @@ public class ConnectionPool {
         });
     }
 
-    public Connection acquireConnection() {
-        synchronized (connectionPool) {
-            for (Map.Entry<Integer, Connection> entry : connectionPool.entrySet()) {
-                Integer key = entry.getKey();
-                Connection connection = entry.getValue();
-                if (connectionPool.replace(key, connection, null)) {
-                    return connection;
-                }
-            }
-        }
-        throw new RuntimeException("No available connections");
+    public Connection acquireConnection() throws InterruptedException {
+        return connections.take();
     }
 
     public void releaseConnection(Connection connection) {
         if (connection != null) {
-            synchronized (connectionPool) {
-                connectionPool.put(initialId++, connection);
-                availableConnections.release();
-            }
+            connections.offer(connection);
         }
     }
 }
