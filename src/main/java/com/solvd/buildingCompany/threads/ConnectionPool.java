@@ -1,6 +1,5 @@
 package com.solvd.buildingCompany.threads;
 
-import java.util.Map;
 import java.util.concurrent.*;
 
 public class ConnectionPool {
