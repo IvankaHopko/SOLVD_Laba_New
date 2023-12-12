@@ -2,11 +2,16 @@ package com.solvd.buildingCompany.additionalClasses;
 
 import java.util.List;
 
-public class Department {
+public class Department implements Runnable {
     private String name;
     private String address;
     private List<Employee> employees;
     private int staff;
+
+    @Override
+    public void run(){
+        System.out.println("\nThe second additional thread has been successfully created\n");
+    }
 
     public String getName() {
         return name;

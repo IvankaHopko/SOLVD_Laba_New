@@ -48,6 +48,9 @@ public class Main {
         Customer customer = new Customer("Dean", "Winchester", desiredBuilding);
         Provider provider = new Provider("John", "Storm", "Kyiv", true);
 
+        provider.start();
+        (new Thread(new Department())).start();
+
         LOGGER.info("\n\nCustomer: " + customer.getFirstName() + " " + customer.getLastName() + "\n\n" +
                 "Desired building: " + "\n" + customer.getDesiredBuilding());
 

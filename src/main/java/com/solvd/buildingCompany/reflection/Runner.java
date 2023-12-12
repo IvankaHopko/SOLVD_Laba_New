@@ -1,4 +1,4 @@
-package com.solvd.buildingCompany.Reflection;
+package com.solvd.buildingCompany.reflection;
 
 import com.solvd.buildingCompany.additionalClasses.Marketer;
 import com.solvd.buildingCompany.additionalClasses.Name;
